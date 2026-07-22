@@ -1,0 +1,8 @@
+environment: default
+
+notification:
+  name: gox-console-notification
+  text: "GOX Environment"
+  location: BannerTop
+  color: "#FFFFFF"
+  backgroundColor: "#0066CC"

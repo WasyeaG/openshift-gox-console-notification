@@ -1,0 +1,14 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: {{ .Values.notification.name }}
+  labels:
+    app.kubernetes.io/name: console-notification
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    gox.li9.com/environment: {{ include "console-notification.environment" . }}
+spec:
+  text: {{ .Values.notification.text | quote }}
+  location: {{ .Values.notification.location }}
+  color: {{ .Values.notification.color | quote }}
+  backgroundColor: {{ .Values.notification.backgroundColor | quote }}

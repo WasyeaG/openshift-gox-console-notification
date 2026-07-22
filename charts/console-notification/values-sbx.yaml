@@ -1,0 +1,8 @@
+environment: sbx
+
+notification:
+  name: gox-sbx-console-notification
+  text: "GOX Sandbox Environment"
+  location: BannerTop
+  color: "#FFFFFF"
+  backgroundColor: "#0066CC"
