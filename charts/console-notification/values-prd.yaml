@@ -1,0 +1,5 @@
+environment: prd
+
+notification:
+  text: "GOX Production Environment"
+  color: "#C0392B"

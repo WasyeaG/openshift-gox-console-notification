@@ -1,0 +1,5 @@
+environment: stg
+
+notification:
+  text: "GOX Staging Environment"
+  color: "#F39C12"

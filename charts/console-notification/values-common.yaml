@@ -1,0 +1,7 @@
+notification:
+  location: BannerTop
+  link:
+    href: ""
+    text: ""
+  visibility:
+    state: Active
