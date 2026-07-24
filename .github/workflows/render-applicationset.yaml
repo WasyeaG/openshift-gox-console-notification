@@ -21,7 +21,7 @@ jobs:
       source_branch: ${{ github.ref_name }}
       applicationset_repository: WasyeaG/openshift-gox-console-notification-applicationset
       applicationset_revision: main
-      applicationset_chart_path: .
+      applicationset_chart_path: charts/console-notification-applicationset
       dry_run: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run }}
     secrets:
       openshift_server: ${{ secrets.OPENSHIFT_SERVER }}
