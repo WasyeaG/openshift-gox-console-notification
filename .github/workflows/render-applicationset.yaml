@@ -1,0 +1,28 @@
+name: Render ApplicationSet
+
+on:
+  push:
+    branches:
+      - sbx
+      - stg
+      - main
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Render only without applying to OpenShift
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  render-applicationset:
+    uses: WasyeaG/openshift-gox-gitops-workflows/.github/workflows/render-apply-applicationset.yaml@main
+    with:
+      source_branch: ${{ github.ref_name }}
+      applicationset_repository: WasyeaG/openshift-gox-console-notification-applicationset
+      applicationset_revision: main
+      applicationset_chart_path: .
+      dry_run: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run }}
+    secrets:
+      openshift_server: ${{ secrets.OPENSHIFT_SERVER }}
+      openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
