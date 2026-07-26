@@ -15,14 +15,53 @@ on:
         type: boolean
 
 jobs:
-  render-applicationset:
+  sandbox:
+    name: Sandbox
+    if: ${{ github.ref_name == 'sbx' }}
+
     uses: WasyeaG/openshift-gox-gitops-workflows/.github/workflows/render-apply-applicationset.yaml@main
+
     with:
-      source_branch: ${{ github.ref_name }}
+      source_branch: sbx
       applicationset_repository: WasyeaG/openshift-gox-console-notification-applicationset
       applicationset_revision: main
       applicationset_chart_path: charts/console-notification-applicationset
       dry_run: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run }}
+
     secrets:
-      openshift_server: ${{ secrets.OPENSHIFT_SERVER }}
-      openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+      openshift_server: ${{ secrets.OPENSHIFT_SERVER_SBX }}
+      openshift_token: ${{ secrets.OPENSHIFT_TOKEN_SBX }}
+
+  staging:
+    name: Staging
+    if: ${{ github.ref_name == 'stg' }}
+
+    uses: WasyeaG/openshift-gox-gitops-workflows/.github/workflows/render-apply-applicationset.yaml@main
+
+    with:
+      source_branch: stg
+      applicationset_repository: WasyeaG/openshift-gox-console-notification-applicationset
+      applicationset_revision: main
+      applicationset_chart_path: charts/console-notification-applicationset
+      dry_run: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run }}
+
+    secrets:
+      openshift_server: ${{ secrets.OPENSHIFT_SERVER_STG }}
+      openshift_token: ${{ secrets.OPENSHIFT_TOKEN_STG }}
+
+  production:
+    name: Production-like
+    if: ${{ github.ref_name == 'main' }}
+
+    uses: WasyeaG/openshift-gox-gitops-workflows/.github/workflows/render-apply-applicationset.yaml@main
+
+    with:
+      source_branch: main
+      applicationset_repository: WasyeaG/openshift-gox-console-notification-applicationset
+      applicationset_revision: main
+      applicationset_chart_path: charts/console-notification-applicationset
+      dry_run: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run }}
+
+    secrets:
+      openshift_server: ${{ secrets.OPENSHIFT_SERVER_PRD }}
+      openshift_token: ${{ secrets.OPENSHIFT_TOKEN_PRD }}
